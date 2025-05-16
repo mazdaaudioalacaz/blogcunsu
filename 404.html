@@ -11,11 +11,10 @@
     var slug = parts.pop();
     if (!slug) return;
     slug = slug.replace(/\.html$/, '');
-    // Aynı dizinde index.html#slug yerine, doğrudan index.html çağırmak için:
+    // Aynı dizinde index.html#slug olarak yönlendir
     var base = '/' + parts.join('/');
     if (base === '/') base = '';
-    // index.html'e yönlendir ve JS loader index.html içinde çalışacak
-    location.replace(base + '/index.html');
+    location.replace(base + '/index.html#' + encodeURIComponent(slug));
   })();
   </script>
 </head>
