@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   <title>Yönlendiriliyor…</title>
   <script>
-    // Path-based slug (örn. /denek veya /denek.html)
-    var slug = location.pathname
-      .replace(/^\//, '')
-      .replace(/\/(index\.html)?$/, '')
-      .replace(/\.html$/, '');
+  (function() {
+    // Bulunmayan sayfa URL'sinden slug çıkar
+    var path = location.pathname;
+    var parts = path.split('/').filter(Boolean);
+    var slug = parts.pop();
     if (!slug) return;
-    // Hash ile root’a yönlendir
-    location.replace('/#' + encodeURIComponent(slug));
+    slug = slug.replace(/\.html$/, '');
+    // Aynı dizinde index.html#slug yerine, doğrudan index.html çağırmak için:
+    var base = '/' + parts.join('/');
+    if (base === '/') base = '';
+    // index.html'e yönlendir ve JS loader index.html içinde çalışacak
+    location.replace(base + '/index.html');
+  })();
   </script>
 </head>
 <body></body>
