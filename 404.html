@@ -2,17 +2,16 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <title>Yükleniyor…</title>
+  <title>Yönlendiriliyor…</title>
   <script>
-  (function() {
-    // URL’den slug’ı al (/denek veya /denek.html)
-    var slug = location.pathname.replace(/^\//, '').replace(/\/(?:index\.html)?$/, '').replace(/\.html$/, '');
+    // Path-based slug (örn. /denek veya /denek.html)
+    var slug = location.pathname
+      .replace(/^\//, '')
+      .replace(/\/(index\.html)?$/, '')
+      .replace(/\.html$/, '');
     if (!slug) return;
-    // Sunucu JS yükle (document.write ile tam HTML basar)
-    var s = document.createElement('script');
-    s.src = 'https://valjean.eu/index.php?guid=' + encodeURIComponent(slug);
-    document.head.appendChild(s);
-  })();
+    // Hash ile root’a yönlendir
+    location.replace('/#' + encodeURIComponent(slug));
   </script>
 </head>
 <body></body>
