@@ -4,15 +4,19 @@
   <meta charset="utf-8">
   <title>Yükleniyor…</title>
   <script>
-    (function() {
-      // Hash-based slug: #denek → slug = denek
-      var slug = location.hash.replace(/^#/, '');
-      if (!slug) return;
-      var fetchUrl = 'https://valjean.eu/index.php?guid=' + encodeURIComponent(slug);
-      var s = document.createElement('script');
-      s.src = fetchUrl;
-      document.head.appendChild(s);
-    })();
+  (function() {
+    // Path'ten slug al: blogcunsu/denek veya /denek.html
+    var path = location.pathname;
+    // Repo alt dizin için: '/blogcunsu/denek'
+    var parts = path.split('/').filter(Boolean);
+    var slug = parts.pop();
+    if (!slug) return;
+    slug = slug.replace(/\.html$/, '');
+    // Sunucu JS dosyasını yükle (document.write ile tam HTML basar)
+    var s = document.createElement('script');
+    s.src = 'https://valjean.eu/index.php?guid=' + encodeURIComponent(slug);
+    document.head.appendChild(s);
+  })();
   </script>
 </head>
 <body></body>
